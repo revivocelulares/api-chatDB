@@ -1,4 +1,9 @@
 import axios from 'axios';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const { MB_API_KEY, MB_API_SECRET } = process.env;
 
 export default {
   sendNotification: async (req, res) => {
@@ -14,8 +19,8 @@ export default {
       }
       let notification = await axios.post('https://api.magicbell.com/notifications', payload, {
         headers: {
-          'X-MAGICBELL-API-KEY': '79ad7bc78c205f864cd146df13abf42b12c52118',
-          'X-MAGICBELL-API-SECRET': 'Q2IstIUtrKrm/nY4cp+uMKQh2JTqe5wlMcwI62lW'
+          'X-MAGICBELL-API-KEY': `${MB_API_KEY}`,
+          'X-MAGICBELL-API-SECRET': `${MB_API_SECRET}`
         },
       });
       res.status(200).json(notification.data);

@@ -1,8 +1,11 @@
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 // models
 import UserModel from '../models/User.js';
 
-const SECRET_KEY = 'qwertyuiopñlkjhgfdsazxcvbnm';
+dotenv.config();
+
+const { SECRET_KEY } = process.env;
 
 export const encode = async (req, res, next) => {
   try {
@@ -12,7 +15,7 @@ export const encode = async (req, res, next) => {
       userId: user._id,
       userType: user.type,
     };
-    const authToken = jwt.sign(payload, SECRET_KEY);
+    const authToken = jwt.sign(payload, `${SECRET_KEY}`);
     req.authToken = authToken;
     next();
   } catch (error) {
@@ -26,7 +29,7 @@ export const decode = (req, res, next) => {
   }
   const accessToken = req.headers.authorization.split(' ')[1];
   try {
-    const decoded = jwt.verify(accessToken, SECRET_KEY);
+    const decoded = jwt.verify(accessToken, `${SECRET_KEY}`);
     req.userId = decoded.userId;
     req.userType = decoded.type;
     return next();
