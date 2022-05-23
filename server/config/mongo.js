@@ -1,9 +1,8 @@
 import mongoose from 'mongoose'
-import configuration from './index.js'
+import dotenv from 'dotenv';
+dotenv.config();
 
-const CONNECTION_URL = `mongodb+srv://${configuration.db.url}`
-
-mongoose.connect(CONNECTION_URL, {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
