@@ -19,7 +19,9 @@ import { decode } from './middlewares/jwt.js'
 const app = express();
 
 /** Get port from environment and store in Express. */
-const port = '3001';
+import dotenv from 'dotenv';
+dotenv.config();
+const port = process.env.PORT || 3001;
 app.set("port", port);
 
 app.use(logger("dev"));
