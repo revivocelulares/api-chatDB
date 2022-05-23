@@ -5,6 +5,6 @@ import pushController from '../controllers/notification.js';
 const router = express.Router();
 
 router
-  .post('/send', pushController.sendNotification)
+  .post('/create', pushController.createNotification)
 
 export default router;
