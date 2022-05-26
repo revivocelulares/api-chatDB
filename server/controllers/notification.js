@@ -6,14 +6,12 @@ export default {
   //Create a notification
   createNotification: async (req, res) => {
     try {
+      const { message, recipients } = req.body;
       let payload = {
         notification: {
           title: "New Chat Message",
-          content: "New Chat Message",
-          recipients: [
-            {external_id: "8364bdb25e97463797130f614b64716a"},
-            {external_id: "d47d0cfcd0e04625903c4d173530568d"}
-          ]
+          content: message,
+          recipients: recipients
         }
       }
       let notification = await axios.post('https://api.magicbell.com/notifications', payload, {
