@@ -54,16 +54,17 @@ export default {
   //Register device
   registerDevice: async (req, res) => {
     try {
-      const { device_token, platform } = req.body;
+      const { device_token, platform, id_user } = req.body;
       let payload = {
-        push_subscription: {
-          device_token: device_token,
-          platform: platform
-        }
+       push_subscription: {
+         device_token: device_token,
+         platform: platform
+       }
       }
       let subscriptions = await axios.post('https://api.magicbell.com/push_subscriptions', payload, {
         headers: {
-          'X-MAGICBELL-API-KEY': `${process.env.MB_API_KEY}`
+          'X-MAGICBELL-API-KEY': `${process.env.MB_API_KEY}`,
+          'X-MAGICBELL-USER-EXTERNAL-ID': `${id_user}`
         }
       });
       res.status(200).json(subscriptions.data);
